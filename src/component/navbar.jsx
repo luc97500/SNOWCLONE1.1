@@ -9,53 +9,13 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
+import { Avatar, Tooltip } from "@mui/material";
+import lllLogo from "../asset/lll.png"; // Import your logo
 
 export function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -84,7 +44,7 @@ export function Navbar() {
   const handleProfile = () => {
     const url = 'https://lalitchaudhariportfolio.netlify.app/';
     window.open(url, '_blank');
-    handleMenuClose()
+    handleMenuClose();
   };
 
   const menuId = "primary-search-account-menu";
@@ -106,7 +66,7 @@ export function Navbar() {
     >
       <MenuItem onClick={handleProfile}>My Profile</MenuItem>
       <Link to="/">
-      <MenuItem >Logout</MenuItem>
+        <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
   );
@@ -128,26 +88,6 @@ export function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 0 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 0 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={0} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -165,49 +105,51 @@ export function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1, padding: "20px" }}>
-      <AppBar position="static" sx={{ backgroundColor: "#f5cba7" }}>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "#f5cba7",  // Background color of header
+          borderBottom: "2px solid #34495e",  // Border for the header
+          width: "100%",  // Ensure the header spans full width
+        }}
+      >
         <Toolbar>
-          <Link to = "/">
+          {/* Logo */}
+          <Link to="/" title="Go To Login Page">
+            <img src={lllLogo} alt="Logo" style={{ height: "40px", marginRight: "20px" }} />
+          </Link>
+          {/* Title */}
+          <Link to="/" title="Go To Login Page">
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" , color:'#34495e' ,   textAlign: 'center',fontWeight: 'bold'}}}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              color: '#34495e',
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}
           >
-            DataControl Web-App
+            DataSyncApp
           </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            <Tooltip title="Open Profile">
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+                sx={{ p: 0 }}
+              >
+                <Avatar alt="Lalit Chaudhari" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
