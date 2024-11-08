@@ -1,0 +1,64 @@
+.data-table-wrapper {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.data-table-container {
+    flex: 1;
+    padding: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #4f4e4e;
+}
+
+.data-table-container .rdt_TableHead {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+    border: 1px solid #4f4e4e; /* Border at the bottom of the header */
+}
+
+.data-table-container .rdt_TablePagination {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    z-index: 1;
+    border-top: 1px solid #111010; /* Border at the top of the pagination */
+}
+
+.data-table-container .rdt_TableBody {
+    overflow-y: auto;
+    max-height: calc(100% - 48px); /* Adjusting for pagination height */
+}
+
+.data-table-container .rdt_TableRow {
+    border-bottom: 1px solid #6f6e6e; /* Border between rows */
+}
+
+.data-table-container .rdt_TableCell {
+    border-right: 1px solid #6f6e6e; /* Border between columns */
+    padding: 2px; /* Reduced padding for row height */
+    line-height: 1.5; /* Adjusted line-height for better row height */
+}
+
+/* Border at the end of each row to ensure full border around the table */
+.data-table-container .rdt_TableRow:last-child .rdt_TableCell {
+    border-bottom: 1px solid #6f6e6e;
+}
+
+.data-table-container .rdt_TableRow:first-child .rdt_TableCell {
+    border-top: 1px solid #6f6e6e;
+}
+
+.data-table-container .rdt_TableHead .rdt_TableCell {
+    font-weight: bold;
+    align-items: center;
+}
+
+/* Optional: Adding some space at the bottom of the table container for pagination */
+.data-table-container .rdt_TablePagination {
+    margin-top: 5px;
+}
