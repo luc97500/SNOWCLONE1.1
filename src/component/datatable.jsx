@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { DropdownCell } from "./dropdowncell";
 import { CommentCell } from "./commentCell";
 import "./datable.css";
-import { Box, Button, Fab, TextField } from "@mui/material";
+import { Box, Button, Fab, TextField, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -224,7 +224,7 @@ export const Datatable = ({ currentScreen }) => {
     },
     rows: {
       style: {
-        minHeight: "5px",
+        minHeight: "2px",
         justifyContent: "center",
       },
     },
@@ -313,20 +313,16 @@ export const Datatable = ({ currentScreen }) => {
           display: "flex",
           justifyContent: "flex-end",
           mb: 2,
+          position:'relative'
         }}
       >
-        <TextField
-          label="Search"
-          variant="outlined"
-          size="small"
-          onChange={handleSearchChange}
-          sx={{ width: 300 , marginTop:'8px' }}
-          title = "Search Any Data"
-        />
+        <Typography sx={{ width: 1000 , ml: 3 , marginTop:'15px' ,fontWeight:'bold', textAlign:'center' , color:'red' }}>
+          Note : Please Add Comment on Every Reject or Modified Status in DataTable.
+        </Typography>
 
-         <Fab title = "Open to Insert More Data"  color="primary" aria-label="add" sx={{ ml: 2 }} onClick={handleCreate}>
-          <AddIcon />
-        </Fab>
+         <Button variant="contained" title = "Open to Insert More Data"  sx={{ ml: 2 }} onClick={handleCreate}>
+          Add Data
+        </Button>
 
         <CreateDataPage open={openCreate}  onClose={handleCreateClose}/>
 
@@ -341,7 +337,24 @@ export const Datatable = ({ currentScreen }) => {
         </Button>
       </Box>
 
-      {isLoading ? <Loading /> : <div className="data-table-wrapper" style={{ border: "2px solid black", borderRadius: "8px", padding: "10px" }}>
+      <Box 
+      sx={{
+          display: "flex",
+          justifyContent: "center",
+          mb: 2,
+          position:'relative'
+        }}>
+      <TextField
+          label="Search For The Data"
+          variant="outlined"
+          size="small"
+          onChange={handleSearchChange}
+          sx={{ width: 400 , marginTop:'8px' }}
+          title = "Search Any Data"
+        />
+      </Box>
+
+      {isLoading ? <Loading /> : <div className="data-table-wrapper" style={{ border: "2px solid black", borderRadius: "8px", padding: "5px" }}>
         <div className="data-table-container">
           {!isLoading && (
             <DataTable
