@@ -22,7 +22,7 @@ export const AllRoutes = () => {
                 paddingRight: "20px",
                 paddingLeft: "20px",
                 paddingBottom: "10px",
-                // border: '2px solid black',
+                border: '2px solid black',
                 borderRadius: "4px",
               }}
             >

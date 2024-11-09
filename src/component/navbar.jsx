@@ -42,8 +42,8 @@ export function Navbar() {
   };
 
   const handleProfile = () => {
-    const url = 'https://lalitchaudhariportfolio.netlify.app/';
-    window.open(url, '_blank');
+    const url = "https://lalitchaudhariportfolio.netlify.app/";
+    window.open(url, "_blank");
     handleMenuClose();
   };
 
@@ -108,31 +108,35 @@ export function Navbar() {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "#f5cba7",  // Background color of header
-          borderBottom: "2px solid #34495e",  // Border for the header
-          width: "100%",  // Ensure the header spans full width
+          backgroundColor: "#aed6f1", // Background color of header
+          borderBottom: "2px solid #34495e", // Border for the header
+          width: "100%", // Ensure the header spans full width
         }}
       >
         <Toolbar>
           {/* Logo */}
           <Link to="/" title="Go To Login Page">
-            <img src={lllLogo} alt="Logo" style={{ height: "40px", marginRight: "20px" }} />
+            <img
+              src={lllLogo}
+              alt="Logo"
+              style={{ height: "40px", marginRight: "20px" }}
+            />
           </Link>
           {/* Title */}
           <Link to="/" title="Go To Login Page">
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              display: { xs: "none", sm: "block" },
-              color: '#34495e',
-              textAlign: 'center',
-              fontWeight: 'bold',
-            }}
-          >
-            DataSyncApp
-          </Typography>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                display: { xs: "none", sm: "block" },
+                color: "#34495e",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              DataSyncApp
+            </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -144,13 +148,24 @@ export function Navbar() {
                 aria-controls={menuId}
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
-                color="inherit"
-                sx={{ p: 0 }}
+                sx={{
+                  p: 0,
+                  backgroundColor: "#f39c12", // Main background color
+                  "&:hover": {
+                    backgroundColor: "#d97f00", // Hover background color
+                  },
+                  borderRadius: "50%", // Optional: makes the button round if it's not already
+                  transition: "background-color 0.3s", // Optional: smooth transition on hover
+                }}
               >
-                <Avatar alt="Lalit Chaudhari" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Lalit Chaudhari"
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
           </Box>
+
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -158,7 +173,14 @@ export function Navbar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              sx={{
+                backgroundColor: "#f39c12", // Main background color
+                "&:hover": {
+                  backgroundColor: "#d97f00", // Hover background color
+                },
+                borderRadius: "50%", // Optional: makes the button round if it's not already
+                transition: "background-color 0.3s", // Optional: smooth transition on hover
+              }}
             >
               <MoreIcon />
             </IconButton>
