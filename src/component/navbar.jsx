@@ -5,40 +5,25 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import { Link } from "react-router-dom";
 import { Avatar, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
 import lllLogo from "../asset/lll.png"; // Import your logo
 
 export function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const handleProfile = () => {
@@ -68,38 +53,6 @@ export function Navbar() {
       <Link to="/">
         <MenuItem>Logout</MenuItem>
       </Link>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
     </Menu>
   );
 
@@ -139,7 +92,9 @@ export function Navbar() {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          
+          {/* Profile Avatar (Visible on both desktop and mobile) */}
+          <Box sx={{ display: "flex" }}>
             <Tooltip title="Open Profile">
               <IconButton
                 size="large"
@@ -150,9 +105,9 @@ export function Navbar() {
                 onClick={handleProfileMenuOpen}
                 sx={{
                   p: 0,
-                  backgroundColor: "#f39c12", // Main background color
+                  backgroundColor: "#d1f2eb", // Main background color
                   "&:hover": {
-                    backgroundColor: "#d97f00", // Hover background color
+                    backgroundColor: "#a3e4d7", // Hover background color
                   },
                   borderRadius: "50%", // Optional: makes the button round if it's not already
                   transition: "background-color 0.3s", // Optional: smooth transition on hover
@@ -166,28 +121,8 @@ export function Navbar() {
             </Tooltip>
           </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              sx={{
-                backgroundColor: "#f39c12", // Main background color
-                "&:hover": {
-                  backgroundColor: "#d97f00", // Hover background color
-                },
-                borderRadius: "50%", // Optional: makes the button round if it's not already
-                transition: "background-color 0.3s", // Optional: smooth transition on hover
-              }}
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
       {renderMenu}
     </Box>
   );

@@ -3,12 +3,13 @@ import DataTable from "react-data-table-component";
 import { DropdownCell } from "./dropdowncell";
 import { CommentCell } from "./commentCell";
 import "./datable.css";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Fab, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./Loader";
 import { useNavigate } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
 
 export const Datatable = ({ currentScreen }) => {
   const navigate = useNavigate();
@@ -66,13 +67,17 @@ export const Datatable = ({ currentScreen }) => {
       const reason = reasons[Math.floor(Math.random() * reasons.length)];
       const comment =
         comments[reason][Math.floor(Math.random() * comments[reason].length)];
+
+    const requestnumber = reason === "" ? "" : name + i;
+    const datetime = reason === "" ? "" : randomDate();
+
       const row = {
         id: i + 1,
         name: name,
         reason: reason,
         comment: comment,
-        requestnumber: name + i,
-        datetime: randomDate(),
+        requestnumber: requestnumber,
+        datetime: datetime,
       };
       rows.push(row);
     }
@@ -306,6 +311,9 @@ export const Datatable = ({ currentScreen }) => {
           onChange={handleSearchChange}
           sx={{ width: 300 }}
         />
+         <Fab color="primary" aria-label="add" sx={{ ml: 2 }}>
+          <AddIcon />
+        </Fab>
         <Button
           variant="contained"
           color="secondary"

@@ -24,6 +24,7 @@ export const AllRoutes = () => {
                 paddingBottom: "10px",
                 border: '2px solid black',
                 borderRadius: "4px",
+                padding:'20px'
               }}
             >
               <Navbar />
