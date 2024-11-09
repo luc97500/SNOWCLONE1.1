@@ -12,84 +12,38 @@ import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import createDataPage from "./createDataPage";
 import CreateDataPage from "./createDataPage";
+import axios from "axios";
 
 
 export const Datatable = ({ currentScreen }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
+    const url = 'http://localhost:5000/api/datatable'; 
+    const token = localStorage.getItem('token'); // Your Bearer token
     const loadData = async () => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`, 
+            'Content-Type': 'application/json' 
+          }
+        });
+    
+        setTableData(response.data.data); // Handle the data
+        setIsLoading(false)
+      } catch (error) {
+        console.error('Error:', error); // Handle errors
+        setIsLoading(false)
+      }finally{
+        setIsLoading(false)
+      }
     };
 
     loadData();
   }, []);
-
-  // function to generate dummy records
-  function generateUniqueRows(count) {
-    const reasons = ["accepted", "rejected", "modify", ""];
-    const comments = {
-      accepted: ["ok tested", "good to go", "all set", "ok nice good to go"],
-      rejected: ["not good", "needs work", "rejected", "reevaluated"],
-      modify: [
-        "oks tddested",
-        "needs changes",
-        "update required",
-        "modified control",
-      ],
-      "": [""],
-    };
-
-    function uniqueString() {
-      return "xxxxxx"
-        .replace(/[x]/g, () => Math.floor(Math.random() * 16).toString(16))
-        .toUpperCase();
-    }
-
-    function randomDate() {
-      const start = new Date(2020, 9, 1); // October 1, 2020
-      const end = new Date(2020, 11, 31); // December 31, 2020
-      const randomTime =
-        start.getTime() + Math.random() * (end.getTime() - start.getTime());
-      return new Date(randomTime).toLocaleString("en-GB", { timeZone: "UTC" });
-    }
-
-    const rows = [];
-    const usedNames = new Set(); // To ensure unique names
-
-    for (let i = 0; i < count; i++) {
-      let name;
-      do {
-        name = uniqueString();
-      } while (usedNames.has(name));
-      usedNames.add(name);
-
-      const reason = reasons[Math.floor(Math.random() * reasons.length)];
-      const comment =
-        comments[reason][Math.floor(Math.random() * comments[reason].length)];
-
-    const requestnumber = reason === "" ? "" : name + i;
-    const datetime = reason === "" ? "" : randomDate();
-
-      const row = {
-        id: i + 1,
-        name: name,
-        reason: reason,
-        comment: comment,
-        requestnumber: requestnumber,
-        datetime: datetime,
-      };
-      rows.push(row);
-    }
-
-    return rows;
-  }
-
-  // rows binding here in this state
-  const [tableData, setTableData] = useState(generateUniqueRows(200));
 
   const [editedRows, setEditedRows] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
@@ -98,11 +52,14 @@ export const Datatable = ({ currentScreen }) => {
   const [openCreate,setOpenCreate] = useState(false)
 
   // for search functionality
-  const filteredData = tableData.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
+  let filteredData = tableData
+  if (tableData && tableData.length > 0) {
+    filteredData = tableData.filter((row) =>
+      Object.values(row).some((value) =>
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }
 
   // Reason Dropdown change functionality
   const handleDropdownChange = (id, newValue) => {
@@ -247,7 +204,7 @@ export const Datatable = ({ currentScreen }) => {
   const columns = [
     {
       name: "Id",
-      selector: (row) => row.id,
+      selector: (row) => row._id,
       sortable: true,
     },
     {
