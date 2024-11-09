@@ -25,8 +25,8 @@ export default function CreateDataPage({open,onClose}) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={onClose}>Create Multiple Auto Data on single click (limit ~ 20/Click)</Button>
-          <Button variant="outlined" onClick={onClose} autoFocus>
+          <Button variant="contained" onClick={onClose}>Multiple Auto-Data on single Click ! (limit ~ 20 data/Click)</Button>
+          <Button variant="contained" onClick={onClose} autoFocus>
             Create Single Data
           </Button>
         </DialogActions>
