@@ -10,6 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./Loader";
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
+import createDataPage from "./createDataPage";
+import CreateDataPage from "./createDataPage";
+
 
 export const Datatable = ({ currentScreen }) => {
   const navigate = useNavigate();
@@ -92,6 +95,8 @@ export const Datatable = ({ currentScreen }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [focusId, setFocusId] = useState(null);
 
+  const [openCreate,setOpenCreate] = useState(false)
+
   // for search functionality
   const filteredData = tableData.filter((row) =>
     Object.values(row).some((value) =>
@@ -157,6 +162,14 @@ export const Datatable = ({ currentScreen }) => {
     localStorage.removeItem('email');
     localStorage.removeItem('token');
     navigate("/");
+  }
+
+  const handleCreate = () => {
+      setOpenCreate(true)
+  }
+
+  const handleCreateClose = () =>{
+    setOpenCreate(false)
   }
 
   // search change event
@@ -309,16 +322,22 @@ export const Datatable = ({ currentScreen }) => {
           variant="outlined"
           size="small"
           onChange={handleSearchChange}
-          sx={{ width: 300 }}
+          sx={{ width: 300 , marginTop:'8px' }}
+          title = "Search Any Data"
         />
-         <Fab color="primary" aria-label="add" sx={{ ml: 2 }}>
+
+         <Fab title = "Open to Insert More Data"  color="primary" aria-label="add" sx={{ ml: 2 }} onClick={handleCreate}>
           <AddIcon />
         </Fab>
+
+        <CreateDataPage open={openCreate}  onClose={handleCreateClose}/>
+
         <Button
           variant="contained"
           color="secondary"
           sx={{ ml: 2 }}
           onClick={() => downloadCSV(filteredData)}
+          title = "Export to Excel Data"
         >
           Export CSV
         </Button>
