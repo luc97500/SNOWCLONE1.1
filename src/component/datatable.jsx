@@ -304,8 +304,6 @@ export const Datatable = ({ currentScreen }) => {
 
   return (
     <>
-      {isLoading && <Loading />}
-
       <ToastContainer
         style={{ justifyContent: "center", display: "flex", top: "20px" }}
       />
@@ -343,7 +341,7 @@ export const Datatable = ({ currentScreen }) => {
         </Button>
       </Box>
 
-      <div className="data-table-wrapper" style={{ border: "2px solid black", borderRadius: "8px", padding: "10px" }}>
+      {isLoading ? <Loading /> : <div className="data-table-wrapper" style={{ border: "2px solid black", borderRadius: "8px", padding: "10px" }}>
         <div className="data-table-container">
           {!isLoading && (
             <DataTable
@@ -358,6 +356,8 @@ export const Datatable = ({ currentScreen }) => {
           )}
         </div>
       </div>
+      }
+
 
       <Box
         sx={{
