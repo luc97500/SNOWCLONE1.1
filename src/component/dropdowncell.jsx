@@ -11,7 +11,7 @@ export const DropdownCell = ({ row, onChange, isEditable }) => {
   const handleChange = (event) => {
     const newValue = event.target.value;
     setSelectedValue(newValue);
-    onChange(row.id, newValue); // Notify parent component of the change
+    onChange(row._id, newValue); // Notify parent component of the change
   };
 
   return (

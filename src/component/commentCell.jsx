@@ -10,7 +10,7 @@ export const CommentCell = ({ row, onChange, isEditable, columnWidth, focus }) =
   }, [focus]);
 
   const handleCommentChange = (event) => {
-    onChange(row.id, event.target.value);
+    onChange(row._id, event.target.value);
   };
 
   const textareaStyle = {

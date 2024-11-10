@@ -65,7 +65,7 @@ export const Datatable = ({ currentScreen }) => {
   const handleDropdownChange = (id, newValue) => {
     setTableData((prevData) =>
       prevData.map((row) =>
-        row.id === id ? { ...row, reason: newValue } : row
+        row._id === id ? { ...row, reason: newValue } : row
       )
     );
     setEditedRows((prev) => ({ ...prev, [id]: true }));
@@ -76,7 +76,7 @@ export const Datatable = ({ currentScreen }) => {
   const handleCommentChange = (id, newComment) => {
     setTableData((prevData) =>
       prevData.map((row) =>
-        row.id === id ? { ...row, comment: newComment } : row
+        row._id === id ? { ...row, comment: newComment } : row
       )
     );
     setEditedRows((prev) => ({ ...prev, [id]: true }));
@@ -84,7 +84,7 @@ export const Datatable = ({ currentScreen }) => {
 
   // submit button funct.
   const handleSubmit = () => {
-    const editedData = tableData.filter((row) => editedRows[row.id]);
+    const editedData = tableData.filter((row) => editedRows[row._id]);
 
     // ok missing comments in "rejected" or "modify" rows checking here
     const missingComments = editedData.filter(
@@ -218,7 +218,7 @@ export const Datatable = ({ currentScreen }) => {
         <DropdownCell
           row={row}
           onChange={handleDropdownChange}
-          isEditable={editedRows[row.id] || row.reason === ""}
+          isEditable={editedRows[row._id] || row.reason === ""}
         />
       ),
       sortable: true,
@@ -232,8 +232,8 @@ export const Datatable = ({ currentScreen }) => {
         <CommentCell
           row={row}
           onChange={handleCommentChange}
-          isEditable={editedRows[row.id]}
-          focus={focusId === row.id}
+          isEditable={editedRows[row._id]}
+          focus={focusId === row._id}
         />
       ),
       sortable: true,
