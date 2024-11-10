@@ -63,6 +63,7 @@ export const Datatable = ({ currentScreen }) => {
   const [editedRows, setEditedRows] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [focusId, setFocusId] = useState(null);
+  const [selectedRows, setSelectedRows] = useState([]);
 
 
   // for search functionality
@@ -274,6 +275,12 @@ export const Datatable = ({ currentScreen }) => {
     },
   ];
 
+  const handleRowSelected = (state) => {
+    const selectedIds = state.selectedRows.map(row => row._id);
+    setSelectedRows(selectedIds);
+    console.log("Selected Row IDs: ", selectedIds);  
+  };
+
   return (
     <>
       <ToastContainer
@@ -298,8 +305,8 @@ export const Datatable = ({ currentScreen }) => {
          <AddIcon/>
         </Button>
 
-        <Button variant="contained" title = "Click To delete the Data"  sx={{ ml: 1 }}>
-         <AutoDeleteIcon/>
+        <Button disabled = {selectedRows?.length != 0 ? false : true } variant="contained" title = "Want To delete Selected Rows ?"  sx={{ ml: 1 }}>
+         <AutoDeleteIcon />
         </Button>
 
         <CreateDataPage open={openCreate}  onClose={handleCreateClose}/>
@@ -343,6 +350,8 @@ export const Datatable = ({ currentScreen }) => {
               paginationRowsPerPageOptions={[50, 100, 150, 200]}
               paginationPerPage={50}
               customStyles={customStyles}
+              selectableRows
+              onSelectedRowsChange={handleRowSelected}
             />
           )}
         </div>
