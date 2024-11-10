@@ -228,6 +228,16 @@ export const LoginPge = () => {
                 </Grid>
               </Grid>
             </Box>
+
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: "#1d8348" }}
+              >
+                Login As SSO
+              </Button>
+
           </Box>
         </Container>
       </Box>

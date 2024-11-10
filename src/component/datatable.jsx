@@ -50,6 +50,7 @@ export const Datatable = ({ currentScreen }) => {
             text: "Please Create Data !",
             icon: "error",
           });
+          setTableData([])
         }
         setIsLoading(false)
       }finally{
