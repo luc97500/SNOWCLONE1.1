@@ -74,6 +74,7 @@ export const LoginPge = () => {
         });
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("UserName", response.data.user.name);
+        localStorage.setItem("email", response.data.user.email);
 
         if (reminder) {
           localStorage.setItem("email", response.data.user.email);

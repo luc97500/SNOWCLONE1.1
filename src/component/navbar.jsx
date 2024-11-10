@@ -120,7 +120,7 @@ export function Navbar() {
                 }}
               >
                 <Avatar
-                  alt={UserName}
+                  alt={UserName?.toUpperCase()}
                   src="/static/images/avatar/2.jpg"
                 />
               </IconButton>

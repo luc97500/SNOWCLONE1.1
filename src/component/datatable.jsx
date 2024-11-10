@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./Loader";
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
-import createDataPage from "./createDataPage";
+import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
 import CreateDataPage from "./createDataPage";
 import axios from "axios";
 
@@ -20,6 +20,7 @@ export const Datatable = ({ currentScreen }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
   const token = localStorage.getItem('token'); // Your Bearer token
+  const [openCreate,setOpenCreate] = useState(false)
 
   useEffect(() => {
     const url = 'http://localhost:5000/api/datatable'; 
@@ -57,13 +58,12 @@ export const Datatable = ({ currentScreen }) => {
     };
 
     loadData();
-  }, []);
+  }, [openCreate]);
 
   const [editedRows, setEditedRows] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [focusId, setFocusId] = useState(null);
 
-  const [openCreate,setOpenCreate] = useState(false)
 
   // for search functionality
   let filteredData = tableData
@@ -285,15 +285,21 @@ export const Datatable = ({ currentScreen }) => {
           display: "flex",
           justifyContent: "flex-end",
           mb: 2,
-          position:'relative'
+          position:'relative',
+          border: "2px solid #d35400",
+          padding: "8px"
         }}
       >
         <Typography sx={{ width: 1000 , ml: 3 , marginTop:'15px' ,fontWeight:'bold', textAlign:'center' , color:'red' }}>
           Note : Please Add Comment on Every Reject or Modified Status in DataTable.
         </Typography>
 
-         <Button variant="contained" title = "Open to Insert More Data"  sx={{ ml: 2 }} onClick={handleCreate}>
-          Add Data
+        <Button variant="contained" title = "Open to Insert More Data"  sx={{ ml: 1 }} onClick={handleCreate}>
+         <AddIcon/>
+        </Button>
+
+        <Button variant="contained" title = "Click To delete the Data"  sx={{ ml: 1 }}>
+         <AutoDeleteIcon/>
         </Button>
 
         <CreateDataPage open={openCreate}  onClose={handleCreateClose}/>
