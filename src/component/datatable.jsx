@@ -134,6 +134,8 @@ export const Datatable = ({ currentScreen }) => {
     // localStorage.removeItem('email');
     localStorage.removeItem('token');
     localStorage.removeItem('UserName');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('Createdon');
     navigate("/");
   }
 

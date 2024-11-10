@@ -75,13 +75,13 @@ export const LoginPge = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("UserName", response.data.user.name);
         localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("phoneNumber", response.data.user.phone);
+        localStorage.setItem("Createdon", response.data.user.dateTime);
 
         if (reminder) {
           localStorage.setItem("email", response.data.user.email);
           setReminder(false);
-        } else {
-          localStorage.removeItem("email");
-        }
+        } 
         navigate("/home");
       }
     } catch (error) {

@@ -12,10 +12,13 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Avatar, Tooltip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import lllLogo from "../asset/lll.png"; // Import your logo
+import CreateDataPage from "./createDataPage";
+import ProfileCard from "./profileCard";
 
 export function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const [openCreate,setOpenCreate] = React.useState(false)
   
   const UserName = localStorage.getItem('UserName');
   
@@ -30,15 +33,21 @@ export function Navbar() {
   };
 
   const handleProfile = () => {
-    const url = "https://lalitchaudhariportfolio.netlify.app/";
-    window.open(url, "_blank");
+    setOpenCreate(true)
     handleMenuClose();
   };
+
+  const handleCreateClose = () =>{
+    setOpenCreate(false)
+  }
 
   const logoutFunc = () =>{
     // localStorage.removeItem('email');
     localStorage.removeItem('token');
     localStorage.removeItem('UserName');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('Createdon');
+    
     navigate("/");
   }
 
@@ -64,6 +73,7 @@ export function Navbar() {
         <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
+
   );
 
   return (
@@ -130,6 +140,7 @@ export function Navbar() {
         </Toolbar>
       </AppBar>
       {renderMenu}
+      <ProfileCard open={openCreate}  onClose={handleCreateClose}/>
     </Box>
   );
 }
