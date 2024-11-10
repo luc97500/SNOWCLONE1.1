@@ -111,7 +111,7 @@ export function Navbar() {
           
           {/* Profile Avatar (Visible on both desktop and mobile) */}
           <Box sx={{ display: "flex" }}>
-            <Tooltip title="Open Profile">
+            <Tooltip title= {`Welcome  : ${UserName}`}>
               <IconButton
                 size="large"
                 edge="end"
