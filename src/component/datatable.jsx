@@ -19,10 +19,10 @@ export const Datatable = ({ currentScreen }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
+  const token = localStorage.getItem('token'); // Your Bearer token
 
   useEffect(() => {
     const url = 'http://localhost:5000/api/datatable'; 
-    const token = localStorage.getItem('token'); // Your Bearer token
     const loadData = async () => {
       try {
         const response = await axios.get(url, {
@@ -31,11 +31,25 @@ export const Datatable = ({ currentScreen }) => {
             'Content-Type': 'application/json' 
           }
         });
-    
-        setTableData(response.data.data); // Handle the data
+        if(response.status === 200){
+          setTableData(response.data.data); // Handle the data
+        }
         setIsLoading(false)
       } catch (error) {
-        console.error('Error:', error); // Handle errors
+        if(error.status === 401){
+          Swal.fire({
+            title: "Authentication Error",
+            text: "Jwt Token not Found Login Again ! To Access Data ! ",
+            icon: "error",
+          });
+          navigate("/");
+        }else if(error.status === 404){
+          Swal.fire({
+            title: "Data Not Available in DataTable !",
+            text: "Please Create Data !",
+            icon: "error",
+          });
+        }
         setIsLoading(false)
       }finally{
         setIsLoading(false)
@@ -116,8 +130,9 @@ export const Datatable = ({ currentScreen }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('email');
+    // localStorage.removeItem('email');
     localStorage.removeItem('token');
+    localStorage.removeItem('UserName');
     navigate("/");
   }
 

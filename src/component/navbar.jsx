@@ -10,11 +10,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Avatar, Tooltip } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import lllLogo from "../asset/lll.png"; // Import your logo
 
 export function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  
+  const UserName = localStorage.getItem('UserName');
   
   const isMenuOpen = Boolean(anchorEl);
 
@@ -31,6 +34,13 @@ export function Navbar() {
     window.open(url, "_blank");
     handleMenuClose();
   };
+
+  const logoutFunc = () =>{
+    // localStorage.removeItem('email');
+    localStorage.removeItem('token');
+    localStorage.removeItem('UserName');
+    navigate("/");
+  }
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -50,7 +60,7 @@ export function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleProfile}>My Profile</MenuItem>
-      <Link to="/">
+      <Link to="/" onClick={logoutFunc}>
         <MenuItem>Logout</MenuItem>
       </Link>
     </Menu>
@@ -68,15 +78,12 @@ export function Navbar() {
       >
         <Toolbar>
           {/* Logo */}
-          <Link to="/" title="Go To Login Page">
             <img
               src={lllLogo}
               alt="Logo"
               style={{ height: "40px", marginRight: "20px" }}
             />
-          </Link>
           {/* Title */}
-          <Link to="/" title="Go To Login Page">
             <Typography
               variant="h6"
               noWrap
@@ -90,7 +97,6 @@ export function Navbar() {
             >
               DataSyncApp
             </Typography>
-          </Link>
           <Box sx={{ flexGrow: 1 }} />
           
           {/* Profile Avatar (Visible on both desktop and mobile) */}
@@ -114,7 +120,7 @@ export function Navbar() {
                 }}
               >
                 <Avatar
-                  alt="Lalit Chaudhari"
+                  alt={UserName}
                   src="/static/images/avatar/2.jpg"
                 />
               </IconButton>
